@@ -2,10 +2,10 @@
 /*Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
 Comprehensive Version (12th ed.). Pearson Education, Inc*/
 public class Fan{
-private static int STOPPED = 0;
-private static int SLOW = 1;
-private static int MEDIUM = 2;
-private static int FAST = 3;
+final static int STOPPED = 0;
+final static int SLOW = 1;
+final static int MEDIUM = 2;
+final static int FAST = 3;
 private int SPEED;
 
 private boolean on;

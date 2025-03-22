@@ -38,13 +38,8 @@ public class SportsTeamApp{
 
     for(int b = 0; b < teamArray[teamIndex].getplayerCount();b++){
        
-        printPlayers = printPlayers + returnedArray[b];
+        printPlayers = printPlayers + returnedArray[b] + ",";
         
-        
-        if( b < teamArray[teamIndex].getplayerCount() - 1)
-        {
-             printPlayers = printPlayers + ",";
-         }
      }
 
 
