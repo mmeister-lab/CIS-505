@@ -1,5 +1,6 @@
 /*Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
 Comprehensive Version (12th ed.). Pearson Education, Inc*/
+package SportsTeamApp;
 public class Team {
     private String teamName = "";
     private String[] players = new String[20];

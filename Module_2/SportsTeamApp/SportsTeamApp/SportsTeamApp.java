@@ -1,7 +1,8 @@
 /*Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
 Comprehensive Version (12th ed.). Pearson Education, Inc*/
-import java.util.Arrays;
+package SportsTeamApp;
 import java.util.Scanner;
+
 
 public class SportsTeamApp{
     public static void main(String[] args) {
@@ -55,6 +56,7 @@ public class SportsTeamApp{
 }
 System.out.println();
 System.out.println("  End of line...");
+input.close();
 }
 
 }
