@@ -21,7 +21,7 @@ public class Shoe extends Product{
     @Override
     public String toString() {
     
-        return super.toString() + "\n Size:  " + getSize();
+        return super.toString() + "\nSize:  " + getSize() + "\n";
     }
     
     

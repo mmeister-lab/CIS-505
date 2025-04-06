@@ -21,7 +21,7 @@ public class Ball extends Product{
     @Override
     public String toString() {
       // return super.getPrice();
-       return super.toString() + "\n Color:  " + getColor();
+       return super.toString() + "\nColor:  " + getColor()+ "\n";
     }
     
     

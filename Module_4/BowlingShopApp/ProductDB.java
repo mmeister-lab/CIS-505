@@ -4,7 +4,9 @@ package BowlingShopApp;
 
 public class ProductDB {
 
+      
     public static GenericQueue<Product> getProducts(String code){
+       GenericQueue<Product> cart = new GenericQueue<Product>();    
        if(code.compareToIgnoreCase("b")==0){
          
             Ball ball1 = new Ball();
@@ -37,15 +39,11 @@ public class ProductDB {
             ball5.setPrice(154.95);
             ball5.setColor("Blue and Red");
 
-    
-            GenericQueue<Product> balls = new GenericQueue<Product>();  
-            balls.enqueue(ball1);
-            balls.enqueue(ball2);
-            balls.enqueue(ball3);
-            balls.enqueue(ball4);
-            balls.enqueue(ball5);
-            return balls;
-
+            cart.enqueue(ball1);
+            cart.enqueue(ball2);
+            cart.enqueue(ball3);
+            cart.enqueue(ball4);
+            cart.enqueue(ball5);
         }
        else if(code.compareToIgnoreCase("s")==0){
          
@@ -78,14 +76,12 @@ public class ProductDB {
             shoe2.setDescription("Men's Run Black");
             shoe5.setPrice(39.99);
             shoe5.setSize(10.5);
-            
-            GenericQueue<Product> shoes = new GenericQueue<Product>();  
-            shoes.enqueue(shoe1);
-            shoes.enqueue(shoe2);
-            shoes.enqueue(shoe3);               
-            shoes.enqueue(shoe4);     
-            shoes.enqueue(shoe5);
-            return shoes;
+ 
+            cart.enqueue(shoe1);
+            cart.enqueue(shoe2);
+            cart.enqueue(shoe3);               
+            cart.enqueue(shoe4);     
+            cart.enqueue(shoe5);
         }
         else if(code.compareToIgnoreCase("a")==0){
          
@@ -106,24 +102,12 @@ public class ProductDB {
             bag3.setDescription("Path Pro Deluxe");
             bag3.setPrice(34.99);
             bag3.setType("Single");
- 
-            GenericQueue<Product> bags = new GenericQueue<Product>();  
-            bags.enqueue(bag1);
-            bags.enqueue(bag2);
-            bags.enqueue(bag3);   
-            return bags;
+  
+            cart.enqueue(bag1);
+            cart.enqueue(bag2);
+            cart.enqueue(bag3);   
         }
-        else{
-            Other other = new Other();
-            other.setCode("");
-            other.setDescription("");
-            other.setPrice("");
-            others.enqueue(other);
-            GenericQueue<Product> others = new GenericQueue<Product>();  
-            return others;  
-        }
-
-       
+        return cart;
     }
     
 }

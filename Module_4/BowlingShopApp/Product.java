@@ -40,7 +40,8 @@ public class Product {
     @Override
     public String toString() {
         //return "--Product Listing--%n Product code:" + getCode() + "\n Description:  " + getDescription() + "\n Price:  $" + getPrice();
-        return "--Product Listing-- Product code:," + getCode() + ",\n Description:  ,"  + getDescription() + ",\n Price:  $%,6.2f," + getPrice();
+        return String.format("Product Code:  %s%nDescription:  %s%nPrice:  $%,6.2f", code, description, price);
+        
         //return super.toString();
     }
 

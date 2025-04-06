@@ -20,8 +20,8 @@ public class Bag extends Product {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString() + "\n Type:  ," + getType();
+       
+        return super.toString() + "\nType:  " + getType() + "\n";
     }
     
 }

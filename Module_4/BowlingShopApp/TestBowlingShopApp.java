@@ -23,14 +23,15 @@ public class TestBowlingShopApp{
             menuChoice = input.next();
             GenericQueue<Product> products = new GenericQueue<>();
             products = ProductDB.getProducts(menuChoice);    
+            if(products.size() > 0){
+            System.out.println("\n--Product Listing--");}
+            else{System.out.println();}
             while(products.size() > 0){
-              //System.out.println(products.dequeue());
-              
-               System.out.printf(products.dequeue());
-               
-                    //System.out.println(products.toString());
+            
+              System.out.println(products.dequeue());
             }
 
           }while (menuChoice.compareToIgnoreCase("x")!=0);
-}
+          System.out.print("End of line...");
+  }
 }
