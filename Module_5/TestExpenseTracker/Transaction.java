@@ -61,7 +61,6 @@ public void setAmount(double amount) {
     this.amount = amount;
 }
 
-
 @Override
 public String toString() {
     return String.format("MONTHLY EXPENSES%s%nDate:  %s%nDescription:  %s%nAmount:  $%,6.2f", date, description, amount);

@@ -8,22 +8,31 @@ import java.util.Scanner;
 public class TestExpenseTracker {
 
   
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
                 String menu = "Welcome to the Expense Tracker\n\nMENU OPTIONS\n  1. View Transaction\n  2. Add Transactions\n  3. View Expenses\n\nPlease choose an option:  ";
                 int input;
                 String continueMenu = "y";
-         Scanner sc = new Scanner(System.in);        
+         Scanner sc = new Scanner(System.in);   
+         Scanner mn = new Scanner(System.in);     
          ArrayList<Transaction> transactions = new ArrayList<>(); 
          while (!continueMenu.equalsIgnoreCase("n")){
         input = ValidatorIO.getInt(sc,menu);
     
         if(input == 1){
-            transactions = TransactionIO.findAll();
-            //for (Transaction transaction : allTransactions) {
-               // System.out.println(transaction);
-            System.out.print("Continue?  y/n):  ");
-            //}
+         try{
+            TransactionIO.findAll();
+      
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        for (Transaction transaction : transactions)
+        {
+                System.out.println(transaction.toString());
+                }     
+        } 
        else if(input == 2){
             String c = "y";
         
@@ -48,15 +57,17 @@ public class TestExpenseTracker {
             }
 
         }
-        /*else if(input == 3){
+      /*  else if(input == 3){
             double monthlyExpense;
             for (Transaction transaction : transactions)
             {
                 monthlyExpense += transaction.getAmount();
             }
 
-        }*/
-        System.out.print("Continue? (y/n):  ");}
+        }*/ 
+        System.out.print("Continue? (y/n):  ");
+        continueMenu = mn.next();}
+        mn.close();
     System.out.print("Program terminated by the user...");
 
     }
