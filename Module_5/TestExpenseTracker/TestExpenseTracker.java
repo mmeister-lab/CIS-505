@@ -7,35 +7,28 @@ import java.util.Scanner;
 
 public class TestExpenseTracker {
 
-  
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
                 String menu = "Welcome to the Expense Tracker\n\nMENU OPTIONS\n  1. View Transaction\n  2. Add Transactions\n  3. View Expenses\n\nPlease choose an option:  ";
                 int input;
-                String continueMenu = "y";
+               String continueMenu = "y";
          Scanner sc = new Scanner(System.in);   
-         Scanner mn = new Scanner(System.in);     
-         ArrayList<Transaction> transactions = new ArrayList<>(); 
-         while (!continueMenu.equalsIgnoreCase("n")){
+        Scanner mn = new Scanner(System.in);     
+
+        while (!continueMenu.equalsIgnoreCase("n")){
         input = ValidatorIO.getInt(sc,menu);
     
         if(input == 1){
          try{
-            TransactionIO.findAll();
-      
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for (Transaction transaction : transactions)
-        {
-                System.out.println(transaction.toString());
-                }     
+                transactions = TransactionIO.findAll();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }  
         } 
-       else if(input == 2){
+       else if(input == 2)
+       {
             String c = "y";
-        
+            ArrayList<Transaction> transactions = new ArrayList<>();        
             while (c.equalsIgnoreCase("y"))
             {
                 String description = ValidatorIO.getString(sc, "\n Enter the description:  ");
@@ -57,18 +50,18 @@ public class TestExpenseTracker {
             }
 
         }
-      /*  else if(input == 3){
-            double monthlyExpense;
+       else if(input == 3){
+           double monthlyExpense;
             for (Transaction transaction : transactions)
             {
                 monthlyExpense += transaction.getAmount();
             }
 
-        }*/ 
+        }
         System.out.print("Continue? (y/n):  ");
-        continueMenu = mn.next();}
-        mn.close();
-    System.out.print("Program terminated by the user...");
+        continueMenu = mn.next();
+        mn.close();}
+        System.out.print("Program terminated by the user...");
 
-    }
+   }
 }

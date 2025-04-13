@@ -13,11 +13,10 @@ import java.io.FileOutputStream;
 public class TransactionIO {
     private static final String FILE_NAME = "expenses.txt";
     private static File file = new File(FILE_NAME);
-    static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+   // static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     static Scanner sc = new Scanner(file);
     
-    TransactionIO(){
-    }
+    
     public static void bulkInsert(ArrayList<Transaction> transactions) throws IOException{
         PrintWriter output = null;
 
@@ -30,17 +29,27 @@ public class TransactionIO {
 
         for (Transaction tran : transactions)
         {
-            output.print(tran.getDate() + " ");
-            output.print(tran.getDescription() + " ");
+            output.print(tran.getDate() + ",");
+            output.print(tran.getDescription() + ",");
             output.println(tran.getAmount());
         }
         output.close();
     }
-   public static ArrayList<Transaction> findAll() throws IOException{
- try{
+
+
+      public static ArrayList<Transaction> findAll() throws IOException{
+    try{
         while(sc.hasNext()){
-            transactions.add(sc.nextLine()); //The method add(Transaction) in the type ArrayList<Transaction> is not applicable for the arguments (String)   
-        }}
+           sc.next(); 
+            String[] elements = sc.toString.split(",", 3);
+            for (String element : elements) {
+                transactions.add(elements[0]);
+                transactions.add(elements[1]);
+                transactions.add(elements[2].toDouble());
+            }
+        }
+    }
+
         catch(IOException ioe){
             System.out.println("IOException has been thrown. - 2");
         }
@@ -50,4 +59,3 @@ public class TransactionIO {
     }
 
 }
-s
