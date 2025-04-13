@@ -37,25 +37,21 @@ public class TransactionIO {
     }
 
 
-      public static ArrayList<Transaction> findAll() throws IOException{
-    try{
-        while(sc.hasNext()){
-           sc.next(); 
-            String[] elements = sc.toString.split(",", 3);
-            for (String element : elements) {
-                transactions.add(elements[0]);
-                transactions.add(elements[1]);
-                transactions.add(elements[2].toDouble());
-            }
-        }
-    }
+    public static ArrayList<Transaction> findAll() throws IOException {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        Scanner input = new Scanner(file);
 
-        catch(IOException ioe){
-            System.out.println("IOException has been thrown. - 2");
+        while (input.hasNext()) {
+            String date = input.next();
+            String description = input.next();
+            double amount = input.nextDouble();
+            Transaction t = new Transaction(description, amount);
+            t.setDate(date);
+            transactions.add(t);
         }
-  
+
+        input.close();
         return transactions;
-    
     }
 
 }

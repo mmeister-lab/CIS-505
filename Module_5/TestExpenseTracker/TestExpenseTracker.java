@@ -8,9 +8,9 @@ import java.util.Scanner;
 public class TestExpenseTracker {
 
     public static void main(String[] args) {
-                String menu = "Welcome to the Expense Tracker\n\nMENU OPTIONS\n  1. View Transaction\n  2. Add Transactions\n  3. View Expenses\n\nPlease choose an option:  ";
-                int input;
-               String continueMenu = "y";
+        String menu = "Welcome to the Expense Tracker\n\nMENU OPTIONS\n  1. View Transaction\n  2. Add Transactions\n  3. View Expenses\n\nPlease choose an option:  ";
+        int input;
+        String continueMenu = "y";
          Scanner sc = new Scanner(System.in);   
         Scanner mn = new Scanner(System.in);     
 
@@ -18,13 +18,13 @@ public class TestExpenseTracker {
         input = ValidatorIO.getInt(sc,menu);
     
         if(input == 1){
-         try{
+            try {
                 transactions = TransactionIO.findAll();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }  
-        } 
+            }
+        }
        else if(input == 2)
        {
             String c = "y";
@@ -50,14 +50,14 @@ public class TestExpenseTracker {
             }
 
         }
-       else if(input == 3){
+       /*else if(input == 3){
            double monthlyExpense;
             for (Transaction transaction : transactions)
             {
                 monthlyExpense += transaction.getAmount();
             }
 
-        }
+        }*/
         System.out.print("Continue? (y/n):  ");
         continueMenu = mn.next();
         mn.close();}
