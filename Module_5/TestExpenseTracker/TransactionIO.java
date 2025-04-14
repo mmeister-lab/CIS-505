@@ -13,15 +13,16 @@ import java.io.FileOutputStream;
 public class TransactionIO {
     private static final String FILE_NAME = "expenses.txt";
     private static File file = new File(FILE_NAME);
-   // static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+
     static Scanner sc = new Scanner(file);
     
     
     public static void bulkInsert(ArrayList<Transaction> transactions) throws IOException{
         PrintWriter output = null;
-
-        if(file.exists()){
-            output = new PrintWriter(new FileOutputStream(new File(FILE_NAME), true));
+        //ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        
+        if (file.exists()) {
+            output = new PrintWriter(new FileOutputStream(file, true));
         }
         else{
             output = new PrintWriter(FILE_NAME);

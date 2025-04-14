@@ -11,8 +11,9 @@ public class TestExpenseTracker {
         String menu = "Welcome to the Expense Tracker\n\nMENU OPTIONS\n  1. View Transaction\n  2. Add Transactions\n  3. View Expenses\n\nPlease choose an option:  ";
         int input;
         String continueMenu = "y";
-         Scanner sc = new Scanner(System.in);   
+        Scanner sc = new Scanner(System.in);   
         Scanner mn = new Scanner(System.in);     
+        ArrayList<Transaction> transactions = new ArrayList<>();     
 
         while (!continueMenu.equalsIgnoreCase("n")){
         input = ValidatorIO.getInt(sc,menu);
@@ -28,7 +29,7 @@ public class TestExpenseTracker {
        else if(input == 2)
        {
             String c = "y";
-            ArrayList<Transaction> transactions = new ArrayList<>();        
+     
             while (c.equalsIgnoreCase("y"))
             {
                 String description = ValidatorIO.getString(sc, "\n Enter the description:  ");
@@ -51,9 +52,11 @@ public class TestExpenseTracker {
 
         }
        /*else if(input == 3){
-           double monthlyExpense;
+           double monthlyExpense = 0;
+             transactions = TransactionIO.findAll();
             for (Transaction transaction : transactions)
             {
+   
                 monthlyExpense += transaction.getAmount();
             }
 
