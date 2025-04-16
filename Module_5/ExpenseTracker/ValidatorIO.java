@@ -1,10 +1,11 @@
 /*Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
 Comprehensive Version (12th ed.). Pearson Education, Inc*/
-package TestExpenseTracker;
+package ExpenseTracker;
 import java.util.Scanner;
 
 public class ValidatorIO {
-
+/*Class named ValidatorIO to validate invalid user entries.*/
+    /*Verify that input from scanner is int.*/
     public static int getInt(Scanner sc, String prompt){
         int input = 0;
 
@@ -25,6 +26,8 @@ public class ValidatorIO {
         }
     return input;
 }
+
+    /*Verify that input from scanner is double.*/
     public static double getDouble(Scanner sc, String prompt){
         double input = 0;
 
@@ -45,6 +48,8 @@ public class ValidatorIO {
         }
     return input;
     }
+
+    /*Verify that input from scanner is a String.*/
     public static String getString(Scanner sc, String prompt){
         String input = "";
 
