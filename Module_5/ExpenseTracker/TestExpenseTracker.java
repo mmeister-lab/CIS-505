@@ -6,23 +6,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TestExpenseTracker {
-
+    /*Menu method*/
+    public static String menu(){
+        return "Welcome to the Expense Tracker\n\nMENU OPTIONS\n  1. View Transaction\n  2. Add Transactions\n  3. View Expenses\n\nPlease choose an option:  ";
+    }
     public static void main(String[] args) {
-        /*Menu*/
-        String menu = "Welcome to the Expense Tracker\n\nMENU OPTIONS\n  1. View Transaction\n  2. Add Transactions\n  3. View Expenses\n\nPlease choose an option:  ";
         int input;
         String continueMenu = "y";
         /*Scanner class is used to get user input, and it is found in the java.util package.
         If static, a Unresolved compilation problem error will result*/
         Scanner sc = new Scanner(System.in);   
-         /* New instance of ArrayList */ 
-        ArrayList<Transaction> transactions = new ArrayList<>();     
+
 
         /*Loop that allows program to run until user enters "n'"*/
         while (!continueMenu.equalsIgnoreCase("n")){
             /*ValidatorIO static method to validate the users input as int.*/
-            input = ValidatorIO.getInt(sc,menu);
-    
+            input = ValidatorIO.getInt(sc,menu());
+             /* New instance of ArrayList. Creating the instance at the class level cause duplication of entries. */ 
+             ArrayList<Transaction> transactions = new ArrayList<>();     
             /*Display transactions*/
             if(input == 1){
                 try {
