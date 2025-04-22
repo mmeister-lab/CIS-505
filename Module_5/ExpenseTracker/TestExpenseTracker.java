@@ -20,6 +20,7 @@ public class TestExpenseTracker {
 
         /*Loop that allows program to run until user enters "n'"*/
         while (!continueMenu.equalsIgnoreCase("n")){
+
             /*ValidatorIO static method to validate the users input as int.*/
             input = ValidatorIO.getInt(sc,menu());
              /* New instance of ArrayList. Creating the instance at the class level cause duplication of entries. */ 
@@ -92,8 +93,19 @@ public class TestExpenseTracker {
                     e.printStackTrace();
                 }
             }
+            else{
+
+                System.out.print("Invalid entry!");                       
+            }
             /*ValidatorIO static methods to validate the users input is a string.*/
-            continueMenu = ValidatorIO.getString(sc, "\nContinue? (y/n): ");
+ 
+                
+
+                continueMenu = ValidatorIO.getString(sc, "\nContinue? (y/n): ");
+            if(!continueMenu.equalsIgnoreCase("y") && !continueMenu.equalsIgnoreCase("n") ){     
+                 System.out.println("Invalid enter. Please enter again. ");     
+                 continueMenu = ValidatorIO.getString(sc, "\nContinue? (y/n): ");                                   
+            }
         }
         sc.close();
         System.out.print("Program terminated by the user...");
