@@ -62,9 +62,9 @@ public class MeisterFutureValueApp extends Application {
         actionBtnContainer.getChildren().add(btnCalculate); // Add the brnCalc to the container.
         pane.add(actionBtnContainer, 1, 4); // Add the container to the GridPanel
 
-        //Scene scene = new Scene(btnCalculate, 200, 500);
-        //primaryStage.setScene(scene);
-        //primaryStage.show();
+        Scene scene = new Scene(btnCalculate, 200, 500);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
