@@ -25,8 +25,8 @@ public class MeisterFutureValueApp extends Application {
     /*5 Label nodes*/
     private Label lblMonthlyPayment = new Label("Monthly Payment:  ");
     private Label lblInterestRate = new Label("Interest Rate");
-    private Label lblInterestRateFormat = new Label();
-    private Label lbl4 = new Label();
+    private Label lblInterestRateFormat = new Label("Enter 11.1% as 11.1");
+    private Label lblYears = new Label("Years");
     private Label lbl5 = new Label();
     /*Combobox node*/
     private ComboBox<Integer> cbo = new ComboBox<>();
@@ -37,6 +37,7 @@ public class MeisterFutureValueApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
         /*GridPane arranges nodes in a grid (matrix) formation. */
         GridPane pane = new GridPane();
         /*Set node properties*/
@@ -52,7 +53,7 @@ public class MeisterFutureValueApp extends Application {
         pane.add(lblInterestRate, 0, 3);
         pane.add(lblMonthlyPayment, 0, 4);
         pane.add(lblInterestRateFormat, 0, 5);
-        pane.add(lbl4, 0, 6);
+        pane.add(lblYears, 0, 6);
         pane.add(lbl5, 0, 7);
         pane.add(cbo, 0, 8);
         pane.add(btnCalculate, 0, 9);
@@ -89,7 +90,8 @@ public class MeisterFutureValueApp extends Application {
     }
 
    public static void main(String[] args) {
-
+    
+    launch(args);
    }
         
 }
