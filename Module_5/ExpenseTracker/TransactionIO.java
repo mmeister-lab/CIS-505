@@ -14,9 +14,6 @@ public class TransactionIO {
 /*aA class named TransactionIO for reading and writing transactions to a text file.*/
     private static final String FILE_NAME = "expenses.txt";
     private static File file = new File(FILE_NAME);
-    /*Scanner class is used to get user input, and it is found in the java.util package.
-     If static, a Unresolved compilation problem error will result*/
-     Scanner sc = new Scanner(file);
     
     /*Method to insert date, description, and amount in file from ArrayList passed from
      * TestExpenseTracker.java class*/
