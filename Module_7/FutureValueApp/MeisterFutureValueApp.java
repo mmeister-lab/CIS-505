@@ -1,4 +1,3 @@
-
 /*Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
 Comprehensive Version (12th ed.). Pearson Education, Inc*/
 import javafx.scene.paint.Color;
@@ -21,7 +20,7 @@ public class MeisterFutureValueApp extends Application {
     /* Two TextField nodes */
     private TextField tfMessage1 = new TextField();
     private TextField tfMessage2 = new TextField();
-    /* Textarea node */
+    /* TextArea node */
     private TextArea tArea = new TextArea();
     /* 5 Label nodes */
     private Label lblMonthlyPayment = new Label("Monthly Payment:");
@@ -29,7 +28,7 @@ public class MeisterFutureValueApp extends Application {
     private Label lblInterestRateFormat = new Label("Enter 11.1% as 11.1");
     private Label lblYears = new Label("Years:");
     private Label lblFutureValueDate = new Label();
-    /* Combobox node */
+    /* ComboBox node */
     private ComboBox<Integer> cbo = new ComboBox<>();
     /* Calculate Button node */
     private Button btnCalculate = new Button("Calculate");
@@ -50,20 +49,23 @@ public class MeisterFutureValueApp extends Application {
         /* Set the font color of the interest rate instructions to red. */
         lblInterestRateFormat.setTextFill(Color.RED);
 
-        /* Add Monthly Payment Label and TextField to first row of grid. */
+        /* Add Monthly Payment Label to first column and TextField to second column
+        of first row of grid. */
         pane.add(lblMonthlyPayment, 0, 0);
         pane.add(tfMessage1, 1, 0);
 
-        /* Add Interest Rate Label and TextField to second row of grid. */
+        /* Add Interest Rate Label first column and TextField to second column
+        of second row of grid. */
         pane.add(lblInterestRate, 0, 1);
         pane.add(tfMessage2, 1, 1);
 
-        /* Add Interest Rate Format Label to third row of grid. */
+        /* Add Interest Rate Format Label second column of third row of grid. */
         pane.add(lblInterestRateFormat, 1, 2);
         /* position the label to the right of the pane. */
         GridPane.setHalignment(lblInterestRateFormat, HPos.RIGHT);
 
-        /* Add years Label ComboBox to fourth row of grid. */
+        /* Add years Label to first column and  ComboBox to second column
+         of fourth row of grid. */
         pane.add(lblYears, 0, 3);
         cbo.prefWidthProperty().bind(tfMessage2.widthProperty());
         pane.add(cbo, 1, 3);
@@ -80,13 +82,13 @@ public class MeisterFutureValueApp extends Application {
         actionBtnContainer.getChildren().add(btnCalculate);
         /* Set buttons to right alignment. */
         actionBtnContainer.setAlignment(Pos.CENTER_RIGHT);
-        /* Add the container to the fifth row of the grid. */
+        /* Add the container to the second column of the fifth row of the grid. */
         pane.add(actionBtnContainer, 1, 4);
 
-        /* Add Future Value Date Label to sixth row of grid. */
+        /* Add Future Value Date Label to the first column of the sixth row of grid. */
         pane.add(lblFutureValueDate, 0, 5);
 
-        /* Add TextArea to the seventh row of the grid spanning two columns. */
+        /* Add TextArea to the seventh row of the grid spanning columns 1 and 2. */
         pane.add(tArea, 0, 6, 2, 1);
 
         /* Create scene and place it in the stage. */
