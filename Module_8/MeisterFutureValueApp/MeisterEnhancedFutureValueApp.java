@@ -1,5 +1,7 @@
 /*Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
-Comprehensive Version (12th ed.). Pearson Education, Inc*/
+Comprehensive Version (12th ed.). Pearson Education, Inc
+Oracle. (n.d.). Interface ObservableIntegerArray. Retrieved May 4, 2025, from 
+https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ObservableIntegerArray.html*/
 package MeisterFutureValueApp;
 
 import javafx.scene.paint.Color;
@@ -20,10 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.Scene;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-public class MeisterFutureValueApp extends Application {
+public class MeisterEnhancedFutureValueApp extends Application {
 
     /* Two TextField nodes */
     private TextField txtMonthlyPayment = new TextField();
@@ -43,7 +43,11 @@ public class MeisterFutureValueApp extends Application {
     private Button btnCalculate = new Button("Calculate");
     /* Clear Button node */
     private Button btnClear = new Button("Clear");
-    private Integer[] yearsList = new Integer [5];
+    /* Create Integer Array to populate dropdown list. */
+    private Integer[] yearsList = new Integer[6];
+    /* Create double for future value and set to 0. */
+    double futureValue = 0.0;
+
     @Override
     public void start(Stage primaryStage) {
 
@@ -54,19 +58,31 @@ public class MeisterFutureValueApp extends Application {
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
         pane.setHgap(5.5);
         pane.setVgap(5.5);
+        /* Populate dropdown array items. */
         yearsList[0] = 0;
         yearsList[1] = 1;
         yearsList[2] = 2;
         yearsList[3] = 3;
         yearsList[4] = 4;
         yearsList[5] = 5;
+        /*
+         * ObservableIntegerArray is a int[] array that allows listeners to track
+         * changes
+         * when they occur. In order to track changes, the internal array is
+         * encapsulated
+         * and there is no direct access available from the outside. Bulk operations are
+         * supported but they always do a copy of the data range.
+         */
         ObservableList<Integer> items = FXCollections.observableArrayList(yearsList);
+        /* Populate combobox. */
         cbYears.getItems().addAll(items);
+        /* Set default value of combobox. */
         cbYears.setValue(0);
         /* Set the font color of the interest rate instructions to red. */
         lblInterestRateFormat.setTextFill(Color.RED);
 
-        /* Add Monthly Payment Label to first column and TextField to second column
+        /*
+         * Add Monthly Payment Label to first column and TextField to second column
          * of first row of grid.
          */
         pane.add(lblMonthlyPayment, 0, 0);
@@ -108,7 +124,7 @@ public class MeisterFutureValueApp extends Application {
         pane.add(actionBtnContainer, 1, 4);
 
         /* Add Future Value Date Label to the first column of the sixth row of grid. */
-        pane.add(lblFutureValueDate, 0, 5);
+        pane.add(lblFutureValueDate, 0, 5, 2, 1);
 
         /* Add TextArea to the seventh row of the grid spanning columns 1 and 2. */
         pane.add(txtResults, 0, 6, 2, 1);
@@ -121,7 +137,9 @@ public class MeisterFutureValueApp extends Application {
         primaryStage.setScene(scene);
         /* Display the stage */
         primaryStage.show();
+        /* Call clearFormFields method on click of Clear button. */
         btnClear.setOnAction(e -> clearFormFields());
+        /* Call calculateResults method on click of Calculate button. */
         btnCalculate.setOnAction(e -> calculateResults());
     }
 
@@ -131,6 +149,7 @@ public class MeisterFutureValueApp extends Application {
     }
 
     private void clearFormFields() {
+        /* Clear form fields. */
         txtMonthlyPayment.setText("");
         txtInterestRate.setText("");
         txtResults.setText("");
@@ -139,22 +158,34 @@ public class MeisterFutureValueApp extends Application {
     }
 
     private void calculateResults() {
-
+        /* Collects the users's entered values and calls financeCalculator class. */
+        /* Creates new instance of FinanceCalculator class */
         FinanceCalculator calculator = new FinanceCalculator();
-        double futureValue = 0.0;
-        futureValue = calculator.calculateFutureValue(Double.parseDouble(txtMonthlyPayment.getText()),
-               Double.parseDouble(txtInterestRate.getText()), cbYears.getSelectionModel().getSelectedItem());
-        //Create a SimpleDateFormat object with the desired pattern
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
-        // Get the current date
-        Date today = new Date();
-        // Format the date using the format() method
-        String formattedDate = sdf.format(today);
-        txtResults.setText("The future value is " + futureValue);
-        lblFutureValueDate.setText("Calculation as of " + formattedDate);
+        /* Calls calculateFutureValue method in calculator class. */
+        futureValue = calculator.calculateFutureValue(Double.parseDouble(txtMonthlyPayment.getText()),
+                Double.parseDouble(txtInterestRate.getText()), cbYears.getSelectionModel().getSelectedItem());
+
+        /* Set formatted string to txtResults textArea */
+        txtResults.setText(toString());
+        /* Set text in future value date label */
+        lblFutureValueDate.setText("Calculation as of " + todayDate());
     }
 
-}
+    private String todayDate() {
+        /* Create a SimpleDateFormat object with the desired pattern */
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
-        
+        /* Get the current date */
+        Date today = new Date();
+        /* Format the date using the format() method */
+        String formattedDate = sdf.format(today);
+        return formattedDate;
+    }
+
+    /* Override the toString method. Return a string. */
+    @Override
+    public String toString() {
+        return String.format("The future value is $%,6.2f ", futureValue);
+    }
+}
