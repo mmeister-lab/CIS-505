@@ -2,7 +2,6 @@
 Comprehensive Version (12th ed.). Pearson Education, Inc*/
 package GradeBookApp;
 
-
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -15,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
@@ -26,18 +26,18 @@ public class MeisterGradeBookApp extends Application {
 
     /* Two TextField nodes */
     private TextField tfFirstName = new TextField();
-    private TextField tfLastName  = new TextField();
+    private TextField tfLastName = new TextField();
     private TextField tfCourse = new TextField();
     /* TextArea node */
     private TextArea tArea = new TextArea();
 
-  
     /* 5 Label nodes */
     private Label lblFirstName = new Label("First Name:");
     private Label lblLastName = new Label("Last Name:");
     private Label lblCourse = new Label("Course:");
-    private Label lblInstructions = new Label("Enter First Name, Last Name, Course, and choose Grade to save.");
-   
+    private Label lblInstructions = new Label("Enter First Name, Last Name, Course, and choose Grade to save."+
+    "\nFirst Name and Last Name character limit 20 and Course character limit 7.");
+
     private Label lblGrade = new Label("Grade:");
     private Label lblMessage = new Label();
     /* ComboBox node */
@@ -48,20 +48,33 @@ public class MeisterGradeBookApp extends Application {
     private Button btnViewGrades = new Button("View Grades");
     /* Clear Button node */
     private Button btnClear = new Button("Clear");
-     /* Create String Array to populate dropdown list. */
+    /* Create String Array to populate dropdown list. */
     private String[] gradesList = new String[5];
 
     @Override
     public void start(Stage primaryStage) {
-    tArea.setFont(Font.font("Lucida Console", 
-       FontWeight.BOLD,FontPosture.REGULAR,12));
+        /*
+         * Assign Lucida Console font to tArea TextArea. This is a
+         * monospace font. A monospaced font, also known as a fixed-width
+         * or non-proportional font, is a typeface where each character
+         * occupies the same amount of horizontal space.
+         */
+        tArea.setFont(Font.font("Lucida Console",
+                FontWeight.BOLD, FontPosture.REGULAR, 12));
+        /* Assign tArea TextArea font weight bold. */
         tArea.setStyle("-fx-font-weight: bold");
-       tArea.setStyle("-fx-text-fill: black;");
+        /* Assign tAreea font color black. */
+        tArea.setStyle("-fx-text-fill: black;");
+        /* If Licida Console is not on device, another monospace font will be assign. */
         tArea.setStyle("-fx-font-family: Monospaced;");
+        /* Set tAreea TextArea preferred width */
+        tArea.setPrefWidth(400);
+        /* Set tArea TextArea minimum width. */
+        tArea.setMinWidth(400);
 
-
-        /*define height of lblInstructions label so text fits on screen at startup.*/
+        /* define height of lblInstructions label so text fits on screen at startup. */
         lblInstructions.setMinHeight(50);
+
         /* GridPane arranges nodes in a grid (matrix) formation. */
         GridPane pane = new GridPane();
         /* Set node properties */
@@ -89,23 +102,31 @@ public class MeisterGradeBookApp extends Application {
         cbGrades.getItems().addAll(items);
         /* Set default value of combobox. */
         cbGrades.setValue("");
-        /* Add First Name Label to first column and TextField to first column
-        of first row of grid. */
+        /*
+         * Add First Name Label to first column and TextField to first column
+         * of first row of grid.
+         */
         pane.add(lblFirstName, 0, 0);
         pane.add(tfFirstName, 1, 0);
 
-        /* Add Last Name Label first column and TextField to second column
-        of second row of grid. */
+        /*
+         * Add Last Name Label first column and TextField to second column
+         * of second row of grid.
+         */
         pane.add(lblLastName, 0, 1);
         pane.add(tfLastName, 1, 1);
 
-        /* Add Course Label first column and TextField to second column
-        of second row of grid. */
+        /*
+         * Add Course Label first column and TextField to second column
+         * of second row of grid.
+         */
         pane.add(lblCourse, 0, 2);
         pane.add(tfCourse, 1, 2);
 
-        /* Add Grades Label to first column and  ComboBox to second column
-         of fourth row of grid. */
+        /*
+         * Add Grades Label to first column and ComboBox to second column
+         * of fourth row of grid.
+         */
         pane.add(lblGrade, 0, 3);
         pane.add(cbGrades, 1, 3);
 
@@ -152,9 +173,10 @@ public class MeisterGradeBookApp extends Application {
     }
 
     public static void main(String[] args) {
-
+        /* Launch the application. */
         Application.launch(args);
     }
+
     private void clearFormFields() {
         /* Clear form fields. */
         tArea.setText("");
@@ -165,21 +187,53 @@ public class MeisterGradeBookApp extends Application {
         cbGrades.getSelectionModel().clearSelection();
     }
 
-    private void viewGrades(){
+    private void viewGrades() {
+        /* Shows grades from csv file. */
+        /* Clear any leftover messages in lblMessage TextField. */
+        lblMessage.setText("");
+        /* Create an instance of Student class using default constructor. */
         Student student = new Student();
+        /*
+         * Set text in tArea TextArea with string returned from toString method of
+         * student instance.
+         */
         tArea.setText(student.toString());
     }
 
-    private void saveGrade(){
-        /*If all fields have data, save student first name, last name, course, and grade to csv file.*/
-        if(!tfCourse.getText().isEmpty()&&!tfFirstName.getText().isEmpty()&&!tfLastName.getText().isEmpty()&&!cbGrades.getValue().isEmpty()){
-            /*Write student data and header if file is created */
-        Student student = new Student(tfFirstName.getText(), tfLastName.getText(), tfCourse.getText(), cbGrades.getValue()); 
+    private void saveGrade() {
+        /* Saves student grade data to csv file. */
+        /* Clear any leftover messages in lblMessage TextField. */
+        lblMessage.setText("");
+        /*
+         * If all fields have data, save student first name, last name, course, and
+         * grade to csv file.
+         */
+        if (tfFirstName.getLength() > 20) {
+                lblMessage.setText("First Name limit 20 characters.");
+    		}
+        else         if (tfLastName.getLength() > 20) {
+                lblMessage.setText("Last Name limit 20 characters.");
+    		}
+        else         if (tfCourse.getLength() > 7) {
+                lblMessage.setText("Course limit 7 characters.");
+    		}
+        else if (!tfCourse.getText().isEmpty() && !tfFirstName.getText().isEmpty() && !tfLastName.getText().isEmpty()
+                && !cbGrades.getValue().isEmpty()) {
+            /* Create an instance of the Stident class using four-parameter constructor. */
+            Student student = new Student(tfFirstName.getText(), tfLastName.getText(), tfCourse.getText(),
+                    cbGrades.getValue());
+            /*
+             * Call writeFile method of instance of Student class. Returns success status to
+             * lblMessage label.
+             */
             lblMessage.setText(student.writeFile());
-        }else{
+        } else {
+            /*
+             * If field information is missing, error message is displaued in lblMessage
+             * label.
+             */
             lblMessage.setText("Please complete all fields");
         }
     }
 
 }
-
