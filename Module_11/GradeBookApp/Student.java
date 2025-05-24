@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Student {
+    /*Private variables*/
     private String firstName;
     private String lastName;
     private String course;
@@ -17,6 +18,12 @@ public class Student {
     private static final String FILE_NAME = "grades.csv";
     private static File file = new File(FILE_NAME);
 
+    /*Constructor with 4 arguments
+     * @firstName
+     * @lastName
+     * @course
+     * @grade*/
+
     public Student(String firstName, String lastName, String course, String grade) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,13 +31,17 @@ public class Student {
         this.grade = grade;
     }
 
+    /*Default constructor with no arguments */
     public Student() {
+        /*Initialize private variables.*/
         this.firstName = "";
         this.lastName = "";
         this.course = "";
         this.grade = "";
 
     }
+
+    /*Getters and setters.*/
 
     public String getFirstName() {
         return firstName;
