@@ -35,8 +35,9 @@ public class MeisterGradeBookApp extends Application {
     private Label lblFirstName = new Label("First Name:");
     private Label lblLastName = new Label("Last Name:");
     private Label lblCourse = new Label("Course:");
-    private Label lblInstructions = new Label("Enter First Name, Last Name, Course, and choose Grade to save."+
-    "\nFirst Name and Last Name character limit 20 and Course character limit 7.");
+    private Label lblInstructions = new Label(
+            "Enter First Name, Last Name, Course, and choose Grade to save or delete." +
+                    "\nFirst Name and Last Name character limit 20 and Course character limit 7.");
 
     private Label lblGrade = new Label("Grade:");
     private Label lblMessage = new Label();
@@ -46,6 +47,8 @@ public class MeisterGradeBookApp extends Application {
     private Button btnAdd = new Button("Add");
     /* Lookup Button node */
     private Button btnViewGrades = new Button("View Grades");
+    /* Clear Button node */
+    private Button btnDelete = new Button("Delete");
     /* Clear Button node */
     private Button btnClear = new Button("Clear");
     /* Create String Array to populate dropdown list. */
@@ -63,14 +66,23 @@ public class MeisterGradeBookApp extends Application {
                 FontWeight.BOLD, FontPosture.REGULAR, 12));
         /* Assign tArea TextArea font weight bold. */
         tArea.setStyle("-fx-font-weight: bold");
-        /* Assign tAreea font color black. */
-        tArea.setStyle("-fx-text-fill: black;");
+        /* Set tArea TextArea's font color to black. */
+        tArea.setStyle("-fx-text-fill: black");
         /* If Licida Console is not on device, another monospace font will be assign. */
         tArea.setStyle("-fx-font-family: Monospaced;");
-        /* Set tAreea TextArea preferred width */
-        tArea.setPrefWidth(400);
+        /* Set tArea TextArea preferred width */
+        tArea.setPrefWidth(450);
         /* Set tArea TextArea minimum width. */
-        tArea.setMinWidth(400);
+        tArea.setMinWidth(450);
+        /*
+         * Setting tArea editable to false will prevent useless adding of text to tArea.
+         */
+        tArea.setEditable(false);
+        /*
+         * Prevents tab focus on text area, which does not have editable text. Scroll
+         * bars still work.
+         */
+        tArea.setFocusTraversable(false);
 
         /* define height of lblInstructions label so text fits on screen at startup. */
         lblInstructions.setMinHeight(50);
@@ -145,6 +157,8 @@ public class MeisterGradeBookApp extends Application {
         actionBtnContainer.getChildren().add(btnAdd);
         /* Add the brnLookup to the container. */
         actionBtnContainer.getChildren().add(btnViewGrades);
+        /* Add the btnDelete to the container. */
+        actionBtnContainer.getChildren().add(btnDelete);
         /* Add the btnClear to the container. */
         actionBtnContainer.getChildren().add(btnClear);
         /* Set buttons to right alignment. */
@@ -166,10 +180,19 @@ public class MeisterGradeBookApp extends Application {
         primaryStage.setScene(scene);
         /* Display the stage */
         primaryStage.show();
+
+        /*
+         * Krasso, R., (2021). CIS 505 Intermediate Java Programming.
+         * Bellevue University, all rights reserved.
+         */
         /* Call clearFormFields method on click of Clear button. */
         btnClear.setOnAction(e -> clearFormFields());
+        /* Call viewGrades method on click of View Grades button. */
         btnViewGrades.setOnAction(e -> viewGrades());
+        /* Call saveGrade method on click of Add button. */
         btnAdd.setOnAction(e -> saveGrade());
+        /* Call deleteGrade method on click of Delete button. */
+        btnDelete.setOnAction(e -> deleteGrade());
     }
 
     public static void main(String[] args) {
@@ -191,6 +214,8 @@ public class MeisterGradeBookApp extends Application {
         /* Shows grades from csv file. */
         /* Clear any leftover messages in lblMessage TextField. */
         lblMessage.setText("");
+        /* Set lblMessage Label's font color black. */
+        lblMessage.setStyle("-fx-text-fill: black");
         /* Create an instance of Student class using default constructor. */
         Student student = new Student();
         /*
@@ -204,36 +229,100 @@ public class MeisterGradeBookApp extends Application {
         /* Saves student grade data to csv file. */
         /* Clear any leftover messages in lblMessage TextField. */
         lblMessage.setText("");
+        /* Set lblMessage Label's default font color black. */
+        lblMessage.setStyle("-fx-text-fill: black");
         /*
          * If all fields have data, save student first name, last name, course, and
          * grade to csv file.
          */
         if (tfFirstName.getLength() > 20) {
-                lblMessage.setText("First Name limit 20 characters.");
-    		}
-        else         if (tfLastName.getLength() > 20) {
-                lblMessage.setText("Last Name limit 20 characters.");
-    		}
-        else         if (tfCourse.getLength() > 7) {
-                lblMessage.setText("Course limit 7 characters.");
-    		}
-        else if (!tfCourse.getText().isEmpty() && !tfFirstName.getText().isEmpty() && !tfLastName.getText().isEmpty()
+            /* Set lblMessage Label's font color red. */
+            lblMessage.setStyle("-fx-text-fill: red");
+            lblMessage.setText("First Name limit 20 characters.");
+        } else if (tfLastName.getLength() > 20) {
+            /* Set lblMessage Label's font color red. */
+            lblMessage.setStyle("-fx-text-fill: red");
+            lblMessage.setText("Last Name limit 20 characters.");
+        } else if (tfCourse.getLength() > 7) {
+            /* Set lblMessage Label's font color red. */
+            lblMessage.setStyle("-fx-text-fill: red");
+            lblMessage.setText("Course limit 7 characters.");
+        } else if (!tfCourse.getText().isEmpty() && !tfFirstName.getText().isEmpty() && !tfLastName.getText().isEmpty()
                 && !cbGrades.getValue().isEmpty()) {
-            /* Create an instance of the Stident class using four-parameter constructor. */
+            /* Create an instance of the Student class using four-parameter constructor. */
             Student student = new Student(tfFirstName.getText(), tfLastName.getText(), tfCourse.getText(),
                     cbGrades.getValue());
             /*
              * Call writeFile method of instance of Student class. Returns success status to
              * lblMessage label.
              */
+
             lblMessage.setText(student.writeFile());
+
+            /* Set lblMessage Label's font color gree if successful write. */
+            lblMessage.setStyle("-fx-text-fill: green");
         } else {
             /*
-             * If field information is missing, error message is displaued in lblMessage
+             * If field information is missing, error message is displayed in lblMessage
              * label.
              */
+            /* Set lblMessage Label's font color red. */
+            lblMessage.setStyle("-fx-text-fill: red");
+            /* Set lblMessage Label's text. */
             lblMessage.setText("Please complete all fields");
         }
     }
 
+    private void deleteGrade() {
+        /* Deletes student grade data to csv file. */
+        /* Clear any leftover messages in lblMessage TextField. */
+        lblMessage.setText("");
+
+        /* Set lblMessage Label's default font color black. */
+        lblMessage.setStyle("-fx-text-fill: black");
+
+        /* If all fields have data, save student first name, last name, course, and
+         * grade to csv file.*/
+        if (tfFirstName.getLength() > 20) {
+            /* Set lblMessage Label's font color red. */
+            lblMessage.setStyle("-fx-text-fill: red");
+            lblMessage.setText("First Name limit 20 characters.");
+        } else if (tfLastName.getLength() > 20) {
+            /* Set lblMessage Label's font color red. */
+            lblMessage.setStyle("-fx-text-fill: red");
+            lblMessage.setText("Last Name limit 20 characters.");
+        } else if (tfCourse.getLength() > 7) {
+            /* Set lblMessage Label's font color red. */
+            lblMessage.setStyle("-fx-text-fill: red");
+            lblMessage.setText("Course limit 7 characters.");
+        } else if (!tfCourse.getText().isEmpty() && !tfFirstName.getText().isEmpty() && !tfLastName.getText().isEmpty()
+                && !cbGrades.getValue().isEmpty()) {
+            /* Create an instance of the Student class using four-parameter constructor. */
+            Student student = new Student(tfFirstName.getText(), tfLastName.getText(), tfCourse.getText(),
+                    cbGrades.getValue());
+
+            /* Call deleteFile method of instance of Student class. Returns success status
+             * to lblMessage label.*/
+
+            String result = student.deleteRecord();
+
+            if (result == "Successfully updated file.") {
+                /* Set lblMessage Label's font color green if successful delete. */
+                lblMessage.setStyle("-fx-text-fill: green");
+            } else {
+                /* Set lblMessage Label's font color red if not successful delete. */
+                lblMessage.setStyle("-fx-text-fill: red");
+            }
+            /* Set lblMessage text from return string from delete attempt. */
+            lblMessage.setText(result);
+
+        } else {
+            /*
+             * If field information is missing, error message is displayed in lblMessage label.*/
+            /* Set lblMessage Label's font color red. */
+            lblMessage.setStyle("-fx-text-fill: red");
+            /* Set lblMessage Label's text. */
+            lblMessage.setText("Please complete all fields.");
+        }
+    }
 }
