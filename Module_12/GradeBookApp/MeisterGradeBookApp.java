@@ -95,7 +95,7 @@ public class MeisterGradeBookApp extends Application {
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
         pane.setHgap(5.5);
         pane.setVgap(5.5);
-
+        /*Set the background of the pane to a gradient of white and light blue. */
         pane.setStyle("-fx-background-color: linear-gradient(from 5% 5% to 100% 100%,rgb(255, 255, 255),rgb(60, 169, 241))");
 
         /* Populate dropdown array items. */
