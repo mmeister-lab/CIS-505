@@ -74,6 +74,7 @@ public class MeisterGradeBookApp extends Application {
         tArea.setPrefWidth(450);
         /* Set tArea TextArea minimum width. */
         tArea.setMinWidth(450);
+
         /*
          * Setting tArea editable to false will prevent useless adding of text to tArea.
          */
@@ -94,6 +95,8 @@ public class MeisterGradeBookApp extends Application {
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
         pane.setHgap(5.5);
         pane.setVgap(5.5);
+
+        pane.setStyle("-fx-background-color: linear-gradient(from 5% 5% to 100% 100%,rgb(255, 255, 255),rgb(60, 169, 241))");
 
         /* Populate dropdown array items. */
         gradesList[0] = "A";
